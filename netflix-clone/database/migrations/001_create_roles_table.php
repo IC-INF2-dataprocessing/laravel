@@ -13,11 +13,9 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('subtitles', function (Blueprint $table) {
+        Schema::create('roles', function (Blueprint $table) {
             $table->id();
-            $table->foreignIdFor(\App\Models\Content::class)->constrained();
-            $table->string('subtitle_path');
-            $table->string('language');
+            $table->string('name');
             $table->timestamps();
         });
     }
@@ -29,6 +27,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('subtitles');
+        Schema::dropIfExists('roles');
     }
 };

@@ -5,12 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Genre extends Model
+class Role extends Model
 {
     use HasFactory;
-
-    public function series()
-    {
-        return $this->belongsTo(Series::class);
-    }
 }

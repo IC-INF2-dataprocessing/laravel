@@ -19,15 +19,6 @@ return new class extends Migration
             $table->float('price', 6);
             $table->timestamps();
         });
-
-        Schema::create('subscription_history', function (Blueprint $table) {
-            $table->id();
-            $table->foreignIdFor(\App\Models\Subscription::class)->constrained()->onDelete('cascade');
-            $table->foreignIdFor(\App\Models\User::class)->constrained()->onDelete('cascade');
-            $table->boolean('paid');
-            $table->timestamp('start_date');
-            $table->timestamps();
-        });
     }
 
     /**
@@ -38,6 +29,5 @@ return new class extends Migration
     public function down()
     {
         Schema::dropIfExists('subscriptions');
-        Schema::dropIfExists('subscription_history');
     }
 };

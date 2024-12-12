@@ -15,16 +15,13 @@ return new class extends Migration
     {
         Schema::create('series', function (Blueprint $table) {
             $table->id();
-            $table->foreignIdFor(\App\Models\Genre::class)->constrained();
             $table->timestamps();
         });
 
-        Schema::create('content_series', function (Blueprint $table) {
+        Schema::create('series_genre', function (Blueprint $table) {
             $table->id();
-            $table->foreignIdFor(\App\Models\Content::class)->constrained()->onDelete('cascade');
             $table->foreignIdFor(\App\Models\Series::class)->constrained()->onDelete('cascade');
-            $table->unsignedInteger('episode_id');
-            $table->unsignedInteger('season_id')->default(1);
+            $table->foreignIdFor(\App\Models\Genre::class)->constrained()->onDelete('cascade');
             $table->timestamps();
         });
     }
@@ -37,6 +34,5 @@ return new class extends Migration
     public function down()
     {
         Schema::dropIfExists('series');
-        Schema::dropIfExists('content_series');
     }
 };

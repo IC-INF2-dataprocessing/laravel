@@ -16,8 +16,8 @@ return new class extends Migration
         Schema::create('profiles', function (Blueprint $table) {
             $table->id();
             $table->foreignIdFor(\App\Models\User::class)->constrained();
+            $table->foreignIdFor(\App\Models\Profile::class)->constrained();
             $table->timestamp('date_of_birth');
-            $table->string('language');
             $table->timestamps();
         });
     }

@@ -11,7 +11,7 @@ class Content extends Model
 
     public function series()
     {
-        return $this->belongsToMany(Series::class);
+        return $this->belongsToMany(Series::class, 'series_episodes');
     }
 
     public function preferences()
