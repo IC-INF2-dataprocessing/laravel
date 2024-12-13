@@ -15,6 +15,7 @@ class User extends Authenticatable
         'name',
         'email',
         'password',
+        'role_id', // Ensure this is included for role assignment
     ];
 
     protected $hidden = [
@@ -26,13 +27,21 @@ class User extends Authenticatable
         'email_verified_at' => 'datetime',
     ];
 
-    public function profiles()
+    // Relationship: A user belongs to a role
+    public function role()
     {
-        return $this->hasMany();
+        return $this->belongsTo(Role::class);
     }
 
-    public function subscriptions()
+    // Check if a user has a specific role
+    public function hasRole($roleName)
     {
-        return $this->belongsToMany(Subscription::class, 'subscription_history');
+        return $this->role && $this->role->name === $roleName;
+    }
+
+    // Check if a user has a specific permission
+    public function hasPermission($permissionName)
+    {
+        return $this->role && $this->role->permissions->contains('name', $permissionName);
     }
 }
