@@ -4,7 +4,8 @@
     <option name="directories">
       <list>
         <option value="$PROJECT_DIR$/laravel-app/tests" />
-        <option value="$PROJECT_DIR$/netflix-clone/tests" />
+        <option value="$PROJECT_DIR$/netflix-clone/tests/Unit" />
+        <option value="$PROJECT_DIR$/netflix-clone/tests/Feature" />
       </list>
     </option>
   </component>
