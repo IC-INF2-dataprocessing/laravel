@@ -21,14 +21,10 @@ return new class extends Migration
                 ->nullable() // Nullable in case a user isn't subscribed
                 ->constrained()
                 ->onDelete('cascade');
-            $table->foreignIdFor(\App\Models\Role::class)
-                ->nullable() // Nullable for default role handling
-                ->constrained()
-                ->onDelete('cascade');
             $table->string('email')->unique();
             $table->timestamp('email_verified_at')->nullable();
             $table->string('password');
-            $table->string('payment_method')->nullable(); // Nullable in case payment isn't set
+            $table->string('payment_method');
             $table->timestamp('blocked')->nullable();
             $table->rememberToken();
             $table->timestamps();
