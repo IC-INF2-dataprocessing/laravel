@@ -2,43 +2,43 @@
 
 namespace App\Http\Controllers;
 
+use App\Helpers\ApiResponseHelper;
 use App\Models\Content;
-use Illuminate\Http\JsonResponse;
-use Illuminate\Http\Request;
+use Symfony\Component\HttpFoundation\Response;
 
 class ContentController extends Controller
 {
-    public function getContent($contentId): JsonResponse
+    public function getContent($contentId): Response
     {
         $content = Content::find($contentId);
 
         if (!$content) {
-            return response()->json(['Error' => 'Content not found'], 404);
+            return ApiResponseHelper::formatResponse(['Error' => 'Content not found'], 404);
         }
 
-        return response()->json([$content, 200]);
+        return ApiResponseHelper::formatResponse([$content, 200]);
     }
 
-    public function getMovie($contentId): JsonResponse
+    public function getMovie($contentId): Response
     {
         $movie = Content::doesntHave('series')->find($contentId);
 
         if (!$movie) {
-            return response()->json(['Error' => 'Content not found'], 404);
+            return ApiResponseHelper::formatResponse(['Error' => 'Content not found'], 404);
         }
 
-        return response()->json([$movie, 200]);
+        return ApiResponseHelper::formatResponse([$movie, 200]);
     }
 
-    public function getSerie($contentId): JsonResponse
+    public function getSerie($contentId): Response
     {
         $series = Content::has('series')->find($contentId);
 
         if ($series->isEmpty()) {
-            return response()->json(['Error' => 'No series found'], 404);
+            return ApiResponseHelper::formatResponse(['Error' => 'No series found'], 404);
         }
 
-        return response()->json([$series, 200]);
+        return ApiResponseHelper::formatResponse([$series, 200]);
     }
 
 }
