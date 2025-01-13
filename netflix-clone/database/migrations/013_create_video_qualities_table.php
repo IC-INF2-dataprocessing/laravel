@@ -25,7 +25,7 @@ return new class extends Migration
             $table->foreignIdFor(\App\Models\VideoQuality::class)->constrained()->onDelete('cascade');
             $table->timestamps();
         });
-        
+
     }
 
     /**
@@ -35,7 +35,7 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('video_qualities');
         Schema::dropIfExists('content_video_quality');
+        Schema::dropIfExists('video_qualities');
     }
 };

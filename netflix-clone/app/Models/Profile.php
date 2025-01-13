@@ -9,6 +9,13 @@ class Profile extends Model
 {
     use HasFactory;
 
+    protected $fillable = [
+        'user_id',
+        'name',
+        'date_of_birth',
+        'profile_picture',
+    ];
+
     public function accounts()
     {
         $this->belongsTo();
