@@ -41,3 +41,11 @@ Route::controller(ProfileController::class)->group(function () {
 Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
 });
+
+Route::middleware('auth:sanctum')->get('/validate-token', function (Request $request) {
+    return response()->json([
+        'valid' => true,
+        'user' => $request->user(),
+    ]);
+});
+
