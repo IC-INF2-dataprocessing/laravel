@@ -3,13 +3,15 @@
 namespace App\Http\Controllers;
 
 use App\Models\User;
+use App\Helpers\ApiResponseHelper;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
+use Symfony\Component\HttpFoundation\Response;
 
 class AuthController extends Controller
 {
-    public function register(Request $request)
+    public function register(Request $request): Response
     {
         $validator = Validator::make($request->all(), [
             'name' => 'required|string|max:255',
@@ -29,13 +31,13 @@ class AuthController extends Controller
 
         $token = $user->createToken('auth_token')->plainTextToken;
 
-        return response()->json([
+        return ApiResponseHelper::formatResponse([
             'access_token' => $token,
             'token_type' => 'Bearer',
         ]);
     }
 
-    public function login(Request $request)
+    public function login(Request $request): Response
     {
         $credentials = $request->validate([
             'email' => 'required|string|email',
@@ -45,21 +47,21 @@ class AuthController extends Controller
         $user = User::where('email', $credentials['email'])->first();
 
         if (!$user || !Hash::check($credentials['password'], $user->password)) {
-            return response()->json(['message' => 'Invalid credentials'], 401);
+            return ApiResponseHelper::formatResponse(['message' => 'Invalid credentials'], 401);
         }
 
         $token = $user->createToken('auth_token')->plainTextToken;
 
-        return response()->json([
+        return ApiResponseHelper::formatResponse([
             'access_token' => $token,
             'token_type' => 'Bearer',
         ]);
     }
 
-    public function logout(Request $request)
+    public function logout(Request $request): Response
     {
         $request->user()->tokens()->delete();
 
-        return response()->json(['message' => 'Logged out successfully']);
+        return ApiResponseHelper::formatResponse(['message' => 'Logged out successfully']);
     }
 }

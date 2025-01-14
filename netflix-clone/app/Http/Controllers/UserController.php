@@ -2,29 +2,39 @@
 
 namespace App\Http\Controllers;
 
+use App\Helpers\ApiResponseHelper;
 use App\Models\Profile;
 use App\Models\User;
-use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
+use Symfony\Component\HttpFoundation\Response;
 
 class UserController extends Controller
 {
-    public function show($userId) : JsonResponse {
-        $user = User::find($userId);
+    public function show($id): Response
+    {
+        $user = User::find($id);
 
         if (!$user) {
-            return response()->json(['error' => 'User not found'], 404);
+            return ApiResponseHelper::formatResponse(['error' => 'User not found'], 404);
         }
 
-        return response()->json($user, 200);
+        $userData = [
+            [
+                'id' => $user->id,
+                'name' => $user->name,
+                'email' => $user->email,
+            ],
+        ];
+
+        return ApiResponseHelper::formatResponse($userData, 200);
     }
 
-    public function update(Request $request, $userId) : JsonResponse {
-        $user = User::find($userId);
+    public function update(Request $request, $id): Response {
+        $user = User::find($id);
 
         if (!$user) {
-            return response()->json(['error' => 'User not found'], 404);
+            return ApiResponseHelper::formatResponse(['error' => 'User not found'], 404);
         }
 
         // Validate the request input
@@ -48,36 +58,36 @@ class UserController extends Controller
         $user->save();
 
         // Return a success response
-        return response()->json([
+        return ApiResponseHelper::formatResponse([
             'message' => 'User updated successfully',
             'user' => $user,
         ], 200);
     }
 
-    public function destroy($userId) : JsonResponse {
+    public function destroy($userId): Response {
         $user = User::find($userId);
 
         // Check if the user exists
         if (!$user) {
-            return response()->json(['error' => 'User not found'], 404);
+            return ApiResponseHelper::formatResponse(['error' => 'User not found'], 404);
         }
 
         // Delete the user
         $user->delete();
 
         // Return a success response
-        return response()->json([
+        return ApiResponseHelper::formatResponse([
             'message' => 'User deleted successfully',
         ], 200);
     }
 
-    public function getProfiles($userId) : JsonResponse {
+    public function getProfiles($userId): Response {
         $profileIds = Profile::where('user_id', $userId)->pluck('id')->toArray();
 
         if (!$profileIds) {
-            return response()->json(['error' => 'No profiles found'], 404);
+            return ApiResponseHelper::formatResponse(['error' => 'No profiles found'], 404);
         }
 
-        return response()->json($profileIds, 200);
+        return ApiResponseHelper::formatResponse($profileIds, 200);
     }
 }
