@@ -17,7 +17,7 @@ class User extends Authenticatable
         'name',
         'email',
         'password',
-        'role_id', // Ensure this is included for role assignment
+        'role_id',
     ];
 
     // Attributes hidden from array/json serialization

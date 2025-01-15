@@ -25,10 +25,14 @@ Route::controller(AuthController::class)->group(function() {
     Route::post('/logout', 'logout')->middleware('auth:sanctum');
 });
 
-Route::controller(UserController::class)->group(function() {
+
+Route::controller(UserController::class)->group(function () {
     Route::get('/users/{id}', 'show');
     Route::put('/users/{id}', 'update');
+    Route::delete('/users/{id}', 'destroy');
     Route::get('/users/{id}/profiles', 'getProfiles');
+    Route::post('/users', 'create');
+    Route::get('/users', 'index');
 });
 
 Route::controller(ProfileController::class)->group(function () {
