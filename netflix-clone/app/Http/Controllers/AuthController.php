@@ -55,6 +55,12 @@ class AuthController extends Controller
         return ApiResponseHelper::formatResponse([
             'access_token' => $token,
             'token_type' => 'Bearer',
+            'user' => [
+                'id' => $user->id,
+                'name' => $user->name,
+                'email' => $user->email,
+                'role' => $user->role ? $user->role->name : null, // Include role
+            ],
         ]);
     }
 
