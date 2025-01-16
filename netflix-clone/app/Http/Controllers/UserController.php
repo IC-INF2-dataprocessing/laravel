@@ -6,11 +6,12 @@ namespace App\Http\Controllers;
 use App\Helpers\ApiResponseHelper;
 use App\Models\Profile;
 use App\Models\User;
+use Dflydev\DotAccessData\Data;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 use Symfony\Component\HttpFoundation\Response;
 
-class UserController extends Controller
+class UserController extends DataController
 {
 
     public function index(): Response
@@ -114,7 +115,7 @@ class UserController extends Controller
         return ApiResponseHelper::formatResponse($profileIds, 200);
     }
 
-    public function create(Request $request): Response
+    public function store(Request $request): Response
     {
         $validatedData = $request->validate([
             'name' => 'required|string|max:255',

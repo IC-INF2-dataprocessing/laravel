@@ -5,6 +5,7 @@ namespace App\Helpers;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Http\Request;
 use Illuminate\Support\Collection;
+use RuntimeException;
 use Symfony\Component\HttpFoundation\Response;
 
 class ApiResponseHelper
@@ -42,18 +43,33 @@ class ApiResponseHelper
 
     static private function toCsv($data)
     {
-        $fp = fopen('php://memory', 'w+');
-
-        if (!empty($data)) {
-            fputcsv($fp, array_keys($data[0]));
+        if (empty($data)) {
+            return ''; // Return an empty string if data is empty
         }
 
+        $fp = fopen('php://memory', 'w+');
+        if (!$fp) {
+            throw new RuntimeException('Unable to open memory stream for CSV writing.');
+        }
+
+        // Add header row (keys of the first array element)
+        fputcsv($fp, array_keys($data[0]));
+
+        // Add data rows
         foreach ($data as $row) {
             if ($row instanceof Model || $row instanceof Collection) {
                 $row = $row->toArray();
             } elseif (is_object($row)) {
                 $row = get_object_vars($row);
             }
+
+            // Flatten nested arrays or objects (optional, depending on your needs)
+            $row = array_map(function ($value) {
+                if (is_array($value) || is_object($value)) {
+                    return json_encode($value); // Convert nested structures to a string
+                }
+                return $value;
+            }, $row);
 
             fputcsv($fp, $row);
         }

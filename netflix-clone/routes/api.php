@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\UserController;
+use App\Http\ExternalControllers\ProfilePictureController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthController;
@@ -31,15 +32,21 @@ Route::controller(UserController::class)->group(function () {
     Route::put('/users/{id}', 'update');
     Route::delete('/users/{id}', 'destroy');
     Route::get('/users/{id}/profiles', 'getProfiles');
-    Route::post('/users', 'create');
+    Route::post('/users', 'store');
     Route::get('/users', 'index');
 });
 
 Route::controller(ProfileController::class)->group(function () {
+    Route::get('/profiles', 'index');
     Route::post('/profiles', 'store');
     Route::get('/profiles/{id}', 'show');
     Route::put('/profiles/{id}', 'update');
     Route::delete('/profiles/{id}', 'destroy');
+});
+
+Route::controller(ProfilePictureController::class)->group(function () {
+    Route::get('/profile-picture', 'random');
+    Route::get('/profile-picture/{id}', 'show');
 });
 
 Route::middleware('auth:sanctum')->get('/user', function (Request $request) {

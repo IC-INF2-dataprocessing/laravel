@@ -61,7 +61,7 @@ class ProfileController extends DataController
         $validatedData = $request->validate([
             'name' => 'sometimes|string|max:255',
             'date_of_birth' => 'sometimes|date',
-            'profile_picture' => 'sometimes|string|max:255',
+            'profile_picture' => 'sometimes|nullable|string|max:255',
         ]);
 
         if(isset($validatedData['name'])) {
@@ -93,5 +93,12 @@ class ProfileController extends DataController
         $profile->delete();
 
         return ApiResponseHelper::formatResponse(['Profile deleted successfully.'], 200);
+    }
+
+    function index()
+    {
+        $profiles = Profile::all();
+
+        return ApiResponseHelper::formatResponse($profiles, 200);
     }
 }
