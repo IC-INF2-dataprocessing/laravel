@@ -17,7 +17,7 @@ return new class extends Migration
             $table->id();
             $table->foreignIdFor(\App\Models\User::class)->constrained()->onDelete('cascade');
             $table->string('name');
-            $table->string('profile_picture')->nullable();
+            $table->integer('profile_picture')->nullable();
             $table->timestamp('date_of_birth');
             $table->timestamps();
         });

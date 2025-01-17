@@ -15,28 +15,25 @@ class ProfileController extends DataController
 
     public function store(Request $request) : Response
     {
-        // Valideer de invoer
         $validator = Validator::make($request->all(), [
             'user_id' => 'required|exists:users,id',
             'name' => 'required|string|max:255',
             'date_of_birth' => 'required|date',
-            'profile_picture' => 'nullable|string|max:255',
+            'profile_picture' => 'nullable|integer|max:255',
         ]);
 
         if ($validator->fails()) {
             return ApiResponseHelper::formatResponse($validator->errors(), 422);
         }
 
-        // Maak een nieuw profiel aan
         $profile = Profile::create([
             'name' => $request['name'],
-            'profile_picture' => $request['profile_picture'] ?? null, // Gebruik null als profielfoto niet is opgegeven
-            'date_of_birth' => $request['date_of_birth'] ?? null, // Gebruik null als geboortedatum niet is opgegeven
-            'user_id' => $request['user_id'], // Koppel het profiel aan een gebruiker
+            'profile_picture' => $request['profile_picture'] ?? null,
+            'date_of_birth' => $request['date_of_birth'] ?? null,
+            'user_id' => $request['user_id'],
         ]);
 
-        // Retourneer het aangemaakte profiel
-        return ApiResponseHelper::formatResponse($profile, 201); // 201 = Created
+        return ApiResponseHelper::formatResponse($profile, 201);
     }
 
 
@@ -61,7 +58,7 @@ class ProfileController extends DataController
         $validatedData = $request->validate([
             'name' => 'sometimes|string|max:255',
             'date_of_birth' => 'sometimes|date',
-            'profile_picture' => 'sometimes|nullable|string|max:255',
+            'profile_picture' => 'sometimes|nullable|integer',
         ]);
 
         if(isset($validatedData['name'])) {
