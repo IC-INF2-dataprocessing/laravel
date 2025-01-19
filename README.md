@@ -1,8 +1,8 @@
 # Data processing
 Leden:
-Aaron de Bruin
-Dave van den Berg
-Lucas Wanink 
+Aaron de Bruin, 
+Dave van den Berg, 
+Lucas Wanink, 
 Lucas Lübbers
 
 ## Installatie
@@ -19,3 +19,6 @@ make setup (als dit niet werkt verander the backup_script.sh en cron_setup.sh in
 make up
 make data
 ```
+
+## Tests
+De Postman tests staan in de onedrive
