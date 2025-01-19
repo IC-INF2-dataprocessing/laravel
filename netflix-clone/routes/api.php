@@ -6,6 +6,7 @@ use App\Http\ExternalControllers\ProfilePictureController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthController;
+use App\Http\Controllers\ContentController;
 
 
 /*
@@ -27,22 +28,28 @@ Route::controller(AuthController::class)->group(function() {
 });
 
 
-Route::controller(UserController::class)->group(function () {
-    Route::get('/users/{id}', 'show');
-    Route::put('/users/{id}', 'update');
-    Route::delete('/users/{id}', 'destroy');
-    Route::get('/users/{id}/profiles', 'getProfiles');
-    Route::post('/users', 'store');
-    Route::get('/users', 'index');
-});
+Route::controller(UserController::class)
+    ->middleware('auth:sanctum')
+    ->group(function () {
+        Route::get('/users/{id}', 'show');
+        Route::put('/users/{id}', 'update');
+        Route::delete('/users/{id}', 'destroy');
+        Route::get('/users/{id}/profiles', 'getProfiles');
+        Route::post('/users', 'store');
+        Route::get('/users', 'index');
+    });
 
-Route::controller(ProfileController::class)->group(function () {
-    Route::get('/profiles', 'index');
-    Route::post('/profiles', 'store');
-    Route::get('/profiles/{id}', 'show');
-    Route::put('/profiles/{id}', 'update');
-    Route::delete('/profiles/{id}', 'destroy');
-});
+
+Route::controller(ProfileController::class)
+    ->middleware('auth:sanctum')
+    ->group(function () {
+        Route::get('/profiles', 'index');
+        Route::post('/profiles', 'store');
+        Route::get('/profiles/{id}', 'show');
+        Route::put('/profiles/{id}', 'update');
+        Route::delete('/profiles/{id}', 'destroy');
+    });
+
 
 Route::controller(ProfilePictureController::class)->group(function () {
     Route::get('/profile-picture', 'random');
@@ -59,4 +66,21 @@ Route::middleware('auth:sanctum')->get('/validate-token', function (Request $req
         'user' => $request->user(),
     ]);
 });
+
+
+Route::controller(ContentController::class)
+    ->middleware('auth:sanctum')
+    ->group(function () {
+        Route::get('/content/{contentId}', 'getContent');
+        Route::get('/content/movie/{contentId}', 'getMovie');
+        Route::get('/content/series/{seriesId}', 'getSerie');
+        Route::get('/content/genre/{genreId}', 'getContentByGenre');
+        Route::get('/content/{contentId}/subtitles', 'getSubtitles');
+
+        // User-Specific Features
+        Route::post('/user/watchlist', 'addToWatchList');
+        Route::post('/user/progress', 'addContentProgress');
+    });
+
+
 
