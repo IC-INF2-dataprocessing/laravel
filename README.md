@@ -1,18 +1,21 @@
-# Foobar
+# Data processing
+Leden:
+Aaron de Bruin
+Dave van den Berg
+Lucas Wanink 
+Lucas Lübbers
+
 ## Installatie
-
-Voer het volgende commando uit in de terminal in de root map:
+Clone de repository:
 ```
-docker compose up -d
+git clone git@github.com:IC-INF2-dataprocessing/laravel.git
+cd laravel
 ```
+Voeg de .env bestand toe in de netflix-clone folder (staat in de onedrive).
 
-## Inloggen in phpMyAdmin
-
-Om in phpMyAdmin in te loggen, moet je deze inloggegevens invoeren:
+Voer de volgende commando uit in de terminal in de root map:
 ```
-Server: mysql_db
-
-Username: root
-
-Password: root
+make setup (als dit niet werkt verander the backup_script.sh en cron_setup.sh in Visual Studio Code van CRLF naar LF)
+make up
+make data
 ```
