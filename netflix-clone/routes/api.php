@@ -58,6 +58,7 @@ Route::controller(ProfileController::class)
     });
 
 Route::controller(PreferenceController::class)
+    ->middleware('auth:sanctum')
     ->group(function () {
         Route::get('/preferences', 'index');
         Route::post('/preferences', 'store');
@@ -67,6 +68,7 @@ Route::controller(PreferenceController::class)
     });
 
 Route::controller(VideoQualityController::class)
+    ->middleware('auth:sanctum')
     ->group(function () {
         Route::get('/video-qualities', 'index');
         Route::post('/video-qualities', 'store');
@@ -76,6 +78,7 @@ Route::controller(VideoQualityController::class)
     });
 
 Route::controller(LanguageController::class)
+    ->middleware('auth:sanctum')
     ->group(function () {
         Route::get('/languages', 'index');
         Route::post('/languages', 'store');
@@ -85,6 +88,7 @@ Route::controller(LanguageController::class)
     });
 
 Route::controller(GenreController::class)
+    ->middleware('auth:sanctum')
     ->group(function () {
         Route::get('/genres', 'index');
         Route::post('/genres', 'store');
@@ -94,6 +98,7 @@ Route::controller(GenreController::class)
     });
 
 Route::controller(SubtitleController::class)
+    ->middleware('auth:sanctum')
     ->group(function () {
         Route::get('/subtitles', 'index');
         Route::post('/subtitles', 'store');
@@ -103,6 +108,7 @@ Route::controller(SubtitleController::class)
     });
 
 Route::controller(SubscriptionController::class)
+    ->middleware('auth:sanctum')
     ->group(function () {
         Route::get('/subscriptions', 'index');
         Route::post('/subscriptions', 'store');
@@ -112,6 +118,7 @@ Route::controller(SubscriptionController::class)
     });
 
 Route::controller(ContentController::class)
+    ->middleware('auth:sanctum')
     ->group(function () {
         Route::get('/content/{contentId}', 'getContent');
         Route::post('/content/{contentId}', 'store');
@@ -127,7 +134,9 @@ Route::controller(ContentController::class)
 
 
 
-Route::controller(ProfilePictureController::class)->group(function () {
+Route::controller(ProfilePictureController::class)
+    ->middleware('auth:sanctum')
+    ->group(function () {
     Route::get('/profile-picture', 'random');
     Route::get('/profile-picture/{id}', 'show');
 });
