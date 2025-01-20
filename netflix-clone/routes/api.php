@@ -118,19 +118,14 @@ Route::controller(SubscriptionController::class)
     });
 
 Route::controller(ContentController::class)
-    ->middleware('auth:sanctum')
     ->group(function () {
         Route::get('/content/{contentId}', 'getContent');
-        Route::post('/content/{contentId}', 'store');
         Route::get('/content/movie/{contentId}', 'getMovie');
         Route::get('/content/series/{seriesId}', 'getSerie');
-        Route::get('/content/genre/{genreId}', 'getContentByGenre');
         Route::get('/content/{contentId}/subtitles', 'getSubtitles');
-
-        // User-Specific Features
-        Route::post('/user/watchlist', 'addToWatchList');
-        Route::post('/user/progress', 'addContentProgress');
     });
+
+
 
 
 
