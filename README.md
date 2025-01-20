@@ -32,8 +32,11 @@ npm run dev
 ```
 Klik vervolgens op de link naast local in de terminal.
 Log in als:
+```
 john@example.com
 password123
+```
+Let op: het kan best lang duren voordat alles laad in vuejs.
 
 ## Tests
 De Postman tests staan in de onedrive
