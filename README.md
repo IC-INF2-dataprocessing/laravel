@@ -23,9 +23,9 @@ make data
 ## phpMyAdmin
 De inloggegevens van phpMyAdmin kan je vinden in de .env
 ```
-Bij Server: DB_HOST
-Bij Username: DB_USERNAME
-Bij Password: DB_PASSWORD
+Voor Server kan je het vinden onder: DB_HOST
+Voor Username kan je het vinden onder: DB_USERNAME
+Voor Password kan je het vinden onder: DB_PASSWORD
 ```
 
 ## Tests
