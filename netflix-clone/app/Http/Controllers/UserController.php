@@ -89,9 +89,9 @@ class UserController extends DataController
         ], 200);
     }
 
-    public function destroy($userId): Response
+    public function destroy($id): Response
     {
-        $user = User::find($userId);
+        $user = User::find($id);
 
         if (!$user) {
             return ApiResponseHelper::formatResponse(['error' => 'User not found'], 404);

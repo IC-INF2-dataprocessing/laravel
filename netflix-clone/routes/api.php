@@ -1,8 +1,15 @@
 <?php
 
+use App\Http\Controllers\GenreController;
+use App\Http\Controllers\LanguageController;
+use App\Http\Controllers\PreferenceController;
 use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\SubscriptionController;
+use App\Http\Controllers\SubtitleController;
 use App\Http\Controllers\UserController;
+use App\Http\Controllers\VideoQualityController;
 use App\Http\ExternalControllers\ProfilePictureController;
+use App\Models\Language;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthController;
@@ -50,6 +57,75 @@ Route::controller(ProfileController::class)
         Route::delete('/profiles/{id}', 'destroy');
     });
 
+Route::controller(PreferenceController::class)
+    ->group(function () {
+        Route::get('/preferences', 'index');
+        Route::post('/preferences', 'store');
+        Route::get('/preferences/{id}', 'show');
+        Route::put('/preferences/{id}', 'update');
+        Route::delete('/preferences/{id}', 'destroy');
+    });
+
+Route::controller(VideoQualityController::class)
+    ->group(function () {
+        Route::get('/video-qualities', 'index');
+        Route::post('/video-qualities', 'store');
+        Route::get('/video-qualities/{id}', 'show');
+        Route::put('/video-qualities/{id}', 'update');
+        Route::delete('/video-qualities/{id}', 'destroy');
+    });
+
+Route::controller(LanguageController::class)
+    ->group(function () {
+        Route::get('/languages', 'index');
+        Route::post('/languages', 'store');
+        Route::get('/languages/{id}', 'show');
+        Route::put('/languages/{id}', 'update');
+        Route::delete('/languages/{id}', 'destroy');
+    });
+
+Route::controller(GenreController::class)
+    ->group(function () {
+        Route::get('/genres', 'index');
+        Route::post('/genres', 'store');
+        Route::get('/genres/{id}', 'show');
+        Route::put('/genres/{id}', 'update');
+        Route::delete('/genres/{id}', 'destroy');
+    });
+
+Route::controller(SubtitleController::class)
+    ->group(function () {
+        Route::get('/subtitles', 'index');
+        Route::post('/subtitles', 'store');
+        Route::get('/subtitles/{id}', 'show');
+        Route::put('/subtitles/{id}', 'update');
+        Route::delete('/subtitles/{id}', 'destroy');
+    });
+
+Route::controller(SubscriptionController::class)
+    ->group(function () {
+        Route::get('/subscriptions', 'index');
+        Route::post('/subscriptions', 'store');
+        Route::get('/subscriptions/{id}', 'show');
+        Route::put('/subscriptions/{id}', 'update');
+        Route::delete('/subscriptions/{id}', 'destroy');
+    });
+
+Route::controller(ContentController::class)
+    ->group(function () {
+        Route::get('/content/{contentId}', 'getContent');
+        Route::post('/content/{contentId}', 'store');
+        Route::get('/content/movie/{contentId}', 'getMovie');
+        Route::get('/content/series/{seriesId}', 'getSerie');
+        Route::get('/content/genre/{genreId}', 'getContentByGenre');
+        Route::get('/content/{contentId}/subtitles', 'getSubtitles');
+
+        // User-Specific Features
+        Route::post('/user/watchlist', 'addToWatchList');
+        Route::post('/user/progress', 'addContentProgress');
+    });
+
+
 
 Route::controller(ProfilePictureController::class)->group(function () {
     Route::get('/profile-picture', 'random');
@@ -66,21 +142,3 @@ Route::middleware('auth:sanctum')->get('/validate-token', function (Request $req
         'user' => $request->user(),
     ]);
 });
-
-
-Route::controller(ContentController::class)
-    ->middleware('auth:sanctum')
-    ->group(function () {
-        Route::get('/content/{contentId}', 'getContent');
-        Route::get('/content/movie/{contentId}', 'getMovie');
-        Route::get('/content/series/{seriesId}', 'getSerie');
-        Route::get('/content/genre/{genreId}', 'getContentByGenre');
-        Route::get('/content/{contentId}/subtitles', 'getSubtitles');
-
-        // User-Specific Features
-        Route::post('/user/watchlist', 'addToWatchList');
-        Route::post('/user/progress', 'addContentProgress');
-    });
-
-
-

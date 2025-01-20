@@ -92,7 +92,7 @@ class ProfileController extends DataController
         return ApiResponseHelper::formatResponse(['Profile deleted successfully.'], 200);
     }
 
-    function index()
+    function index(): Response
     {
         $profiles = Profile::all();
 
