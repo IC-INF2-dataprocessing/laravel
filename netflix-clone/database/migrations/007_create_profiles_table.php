@@ -15,8 +15,9 @@ return new class extends Migration
     {
         Schema::create('profiles', function (Blueprint $table) {
             $table->id();
-            $table->foreignIdFor(\App\Models\User::class)->constrained();
-            $table->foreignIdFor(\App\Models\Profile::class)->constrained();
+            $table->foreignIdFor(\App\Models\User::class)->constrained()->onDelete('cascade');
+            $table->string('name');
+            $table->integer('profile_picture')->nullable();
             $table->timestamp('date_of_birth');
             $table->timestamps();
         });
@@ -27,6 +28,7 @@ return new class extends Migration
      *
      * @return void
      */
+
     public function down()
     {
         Schema::dropIfExists('profiles');

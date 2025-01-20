@@ -24,14 +24,14 @@ return new class extends Migration
             $table->foreignIdFor(\App\Models\Content::class)->constrained()->onDelete('cascade');
             $table->foreignIdFor(\App\Models\Preference::class)->constrained()->onDelete('cascade');
             $table->timestamps();
-        }); 
+        });
 
         Schema::create('profile_preferences', function (Blueprint $table) {
             $table->id();
             $table->foreignIdFor(\App\Models\Profile::class)->constrained()->onDelete('cascade');
             $table->foreignIdFor(\App\Models\Preference::class)->constrained()->onDelete('cascade');
             $table->timestamps();
-        }); 
+        });
     }
 
     /**
@@ -41,8 +41,8 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('preferences');
         Schema::dropIfExists('content_preferences');
-        Schema::dropIfExists('');
+        Schema::dropIfExists('profile_preferences');
+        Schema::dropIfExists('preferences');
     }
 };

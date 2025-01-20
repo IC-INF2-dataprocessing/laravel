@@ -2,16 +2,13 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
 class Series extends Model
 {
-    use HasFactory;
-
-    public function genre()
+    public function genres()
     {
-        return $this->hasOne();
+        return $this->hasMany(Genre::class);
     }
 
     public function contents()

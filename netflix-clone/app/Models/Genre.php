@@ -2,15 +2,20 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
 class Genre extends Model
 {
-    use HasFactory;
+    protected $fillable = [
+        'name',
+    ];
 
+    public function contents()
+    {
+        return $this->belongsToMany(Content::class);
+    }
     public function series()
     {
-        return $this->belongsTo(Series::class);
+        return $this->belongsToMany(Series::class);
     }
 }

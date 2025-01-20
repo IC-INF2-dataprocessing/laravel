@@ -29,7 +29,7 @@ return new class extends Migration
             $table->timestamp('progress');
             $table->unsignedInteger('watch_count')->default(0);
             $table->timestamps();
-        }); 
+        });
 
         Schema::create('watch_list', function (Blueprint $table) {
             $table->id();
@@ -37,7 +37,7 @@ return new class extends Migration
             $table->foreignIdFor(\App\Models\Content::class)->nullable()->constrained()->onDelete('cascade');
             $table->foreignIdFor(\App\Models\Series::class)->nullable()->constrained()->onDelete('cascade');
             $table->timestamps();
-        }); 
+        });
 
         Schema::create('series_episodes', function (Blueprint $table) {
             $table->id();
@@ -63,9 +63,10 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('contents');
-        Schema::dropIfExists('content_series');
+        Schema::dropIfExists('content_progress');
         Schema::dropIfExists('watch_list');
         Schema::dropIfExists('series_episodes');
+        Schema::dropIfExists('content_genre');
+        Schema::dropIfExists('contents');
     }
 };

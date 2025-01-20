@@ -16,19 +16,24 @@ return new class extends Migration
         // Users Table
         Schema::create('users', function (Blueprint $table) {
             $table->id();
-            $table->string('name'); // Added name field
+            $table->string('name');
             $table->foreignIdFor(\App\Models\Subscription::class)
-                ->nullable() // Nullable in case a user isn't subscribed
+                ->nullable()
                 ->constrained()
                 ->onDelete('cascade');
             $table->string('email')->unique();
             $table->timestamp('email_verified_at')->nullable();
             $table->string('password');
-            $table->string('payment_method');
+            $table->string('payment_method')->nullable();
             $table->timestamp('blocked')->nullable();
+            $table->foreignIdFor(\App\Models\Role::class)
+                ->nullable() // Make role nullable
+                ->constrained()
+                ->onDelete('set null'); // If a role is deleted, user role becomes null
             $table->rememberToken();
             $table->timestamps();
         });
+
 
         // User Invites Table
         Schema::create('user_invites', function (Blueprint $table) {
