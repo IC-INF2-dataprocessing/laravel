@@ -15,7 +15,7 @@ Voeg de .env bestand toe in de netflix-clone folder (staat in de onedrive).
 
 Voer de volgende commandos uit in de terminal in de root map:
 ```
-make setup (als dit niet werkt verander the backup_script.sh en cron_setup.sh in Visual Studio Code van CRLF naar LF)
+make setup (als dit niet werkt verander vanwege de backup_script.sh en cron_setup.sh, verander deze bestanden in Visual Studio Code van CRLF naar LF)
 make up
 make data
 ```
