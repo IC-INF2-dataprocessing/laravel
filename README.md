@@ -20,5 +20,13 @@ make up
 make data
 ```
 
+## phpMyAdmin
+De inloggegevens van phpMyAdmin kan je vinden in de .env
+```
+Bij Server: DB_HOST
+Bij Username: DB_USERNAME
+Bij Password: DB_PASSWORD
+```
+
 ## Tests
-De Postman tests staan in de onedrive
+De Postman tests staan in de onedrive. De tests zijn onderverdeeld in collections, buiten de collections staat de 'login' request. Deze request moet je eerst runnen om de acces token op te halen. Kopieer deze en zet hem in de bovenste collectie onder 'authorization'. Hierna kan je alle tests runnen.
