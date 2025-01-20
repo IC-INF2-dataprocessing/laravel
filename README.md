@@ -20,5 +20,20 @@ make up
 make data
 ```
 
+## Vue
+Voer de volgende commandos uit in de terminal:
+```
+git clone git@github.com:IC-INF2-dataprocessing/vuejs.git
+cd vuejs
+git checkout dev
+cd netflix-clone
+npm install
+npm run dev
+```
+Klik vervolgens op de link naast local in de terminal.
+Log in als:
+john@example.com
+password123
+
 ## Tests
 De Postman tests staan in de onedrive
